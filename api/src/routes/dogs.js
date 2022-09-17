@@ -1,6 +1,8 @@
-import { Router } from "express";
-import { axios } from "axios";
-import { getDogAll } from "../controllers";
+const { Router } = require("express");
+const axios = require("axios");
+const { getDogAll } = require("../controllers/dogs");
+const { Dog, Temper } = require("../db");
+const { validate: uuidValidate } = require("uuid");
 
 const router = Router();
 
@@ -9,10 +11,12 @@ router.get("/", async (req, res) => {
     const dogsTotal = await getDogAll();
     const { name } = req.query;
     if (name) {
-      const dogsName = dogsTotal
-        .filter((el) => el.name.toLowerCase())
-        .include(name.toLowerCase());
-      dogsName.length ? res.status(200).send(dogsName) : res.status(404).send("No existe esa raza");
+      const dogsName = dogsTotal.filter((el) =>
+        el.name.toLowerCase().includes(name.toLowerCase())
+      );
+      dogsName.length
+        ? res.status(200).send(dogsName)
+        : res.status(404).send("No existe esa raza");
     } else {
       res.status(200).send(dogsTotal);
     }
@@ -21,26 +25,46 @@ router.get("/", async (req, res) => {
   }
 });
 
-
-router.get("/:idRaza", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const dogsTotal = await getDogAll();
+
     const { id } = req.params;
-    const idDogs = dogsTotal.filter((e) => e.id == id);
-    id.length
-      ? res.status(200).send(idDogs)
-      : res.status(404).send("id no encontrada");
+    if (uuidValidate(id)) {
+      const idDb = await Dog.findByPk(id, {
+        include: Temper,
+      });
+      idDb? res.status(200).send(idDb) : res.status(404).send("id no encontrada");
+    } else {
+      const idDogs = dogsTotal.filter((e) => e.id == id);
+
+      idDogs.length
+        ? res.status(200).send(idDogs)
+        : res.status(404).send("id no encontrada");
+    }
   } catch (error) {
     console.log(error);
   }
 });
 
-router.post('/', async(req,res)=> {
+router.post("/", async (req, res) => {
   try {
-    
+    const { name, image, height, weight, years, temper } = req.body;
+    const dogCreate = await Dog.create({
+      name,
+      image,
+      height,
+      weight,
+      years,
+    });
+    let temperDb = await Temper.findAll({
+      where: { name: temper },
+    });
+    dogCreate.addTemper(temperDb);
+    res.status(200).send("Perro creado con exito");
   } catch (error) {
     console.log(error);
   }
-})
+});
 
-module.exports;
+module.exports = router;

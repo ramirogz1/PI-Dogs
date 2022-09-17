@@ -1,0 +1,12 @@
+.paginado{
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    padding-left: 0%;
+
+}
+
+.number{
+    margin: 0px 2px;
+    
+}

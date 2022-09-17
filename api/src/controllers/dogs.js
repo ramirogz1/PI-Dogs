@@ -12,26 +12,29 @@ const getApiInfo = async ()=> {
             height:e.height.metric,
             weight: e.weight.metric,
             years:e.life_span,
-            temperament :e.temperament,
-            image : e.image.url,
+            temper:e.temperament?e.temperament.split(", "):"",
+            image : e.image.url
         }})
-        return dogsFilter;
+        const sinFilter = []
+        dogsFilter.forEach(element => {
+            if(element.temper !== ""){
+                sinFilter.push(element)
+            }
+            
+        });
+        
+        
+        return sinFilter;
     } catch (error) {
         console.log (error)
     }
 }
 
+
 const getDbInfo = async() => {
     try {
         const dogsDb = await Dog.findAll({
-            where: {
-                id,
-                name,
-                image,
-                height,
-                weight,
-                years,
-            },
+            
             include: {
                 model: Temper,
                 attributes : ['name'],
@@ -40,12 +43,28 @@ const getDbInfo = async() => {
                 }
             }
         })
-        return dogsDb;
+      
+        const dogDb2 = dogsDb.map(e=>{
+            return{
+                id: e.id,
+                name: e.name,
+                image : e.image,
+                height: e.height,
+                weight: e.weight,
+                years: e.years,
+                temper: e.tempers?.map(e=> e.name),
+            }
+        })
+        
+        return dogDb2
+    
+        
+        
+        
 
     } catch (error) {
         console.log(error)
     }
-
     
 }
 
@@ -56,5 +75,5 @@ const getDogAll = async ()=> {
     return infoTotal 
 }
 
-module.exports = getDogAll
+module.exports = {getDogAll}
 
