@@ -1,17 +1,23 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getDogs, getTemperaments,filterTemperament,filterOrigen,orderByName } from "../actions";
 import { Link } from "react-router-dom";
+//importo los hooks que voy a utilizar
+import { useState, useEffect } from "react";
+//importo los hooks de react-redux (previamente instalo npm i react-redux)
+import { useDispatch, useSelector } from "react-redux";
+// importo las actions que me interesa usar en este componente
+import { getDogs, getTemperaments,filterTemperament,filterOrigen,orderByName,orderPeso } from "../actions";
+
+// importo los componentes que voy a utilizar
 import Card from "./Card";
-
-
 import Paginado from "./Paginado";
+import SearchBar from "./SeachBar";
+
+//COMIENZA EL COMPONENTE
 
 export default function Home() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
-  console.log(allDogs)
+ 
  
   // estados locales:
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,7 +25,8 @@ export default function Home() {
   const indexOfLastDog = currentPage * dogsPerPage; //8
   const indexOfFirstDog = indexOfLastDog - dogsPerPage; //0
   const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
-  const [orden,setOrden]=useState('')
+  const [/*orden*/,setOrden]=useState('')
+  const allTemperaments = useSelector((state) => state.temperaments);
 
   //1 ------ 0 -----8
   //2 -------9-----17
@@ -31,13 +38,10 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getDogs());
-  }, [dispatch]);
-
-  const allTemperaments = useSelector((state) => state.temperaments);
-
-  useEffect(() => {
     dispatch(getTemperaments());
   }, [dispatch]);
+
+  
 
   function handleClick(e) {
     e.preventDefault();
@@ -58,15 +62,22 @@ function handleFilterTemper(e){
     setCurrentPage(1)
   };
 
-  function handleSoft(e){
+  function handleSort(e){
     e.preventDefault();
     dispatch(orderByName(e.target.value))
     setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`)
   };
 
+  function handlePeso (e){
+    e.preventDefault();
+    dispatch(orderPeso(e.target.value))
+    setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`)
+  }
+
   return (
-    <div>
+    <div >
       <Link to="/dog">Crear Perro</Link>
       <h1>AGUANTE LOS PICHICHUS :D</h1>
       <button
@@ -94,21 +105,23 @@ function handleFilterTemper(e){
           <option value="DataBase">Base de Datos</option>
         </select>
 
-        <select onChange={(e)=> {handleSoft(e)}}>
-          <option>Orden Alfabetico</option>
+        <select onChange={(e)=> {handleSort(e)}}>
+          <option disabled selected>Orden Alfabetico</option>
           <option value="asc">Ascendente</option>
           <option value="des">Descendente</option>
         </select>
-        <select>
-          <option>Peso</option>
-          <option>De Menor a Mayor</option>
-          <option>De Mayor a Menor</option>
+        <select onChange={ (e)=> 
+            { handlePeso(e)}}>
+          <option disabled selected>Peso</option>
+          <option value="min">De Menor a Mayor</option>
+          <option value="max">De Mayor a Menor</option>
         </select>
         <Paginado
           dogsPerPage={dogsPerPage}
           allDogs={allDogs.length}
           paginado={paginado}
         />
+        <SearchBar/>
         {currentDogs?.map((el) => {
           return (
             <div key={el.id}>

@@ -28,3 +28,9 @@ const getTempers = async () => {
 };
 
 module.exports = getTempers;
+
+// min=[6]
+// max=[ 12] ----> api w.metric ----> peso.split(" - ")
+//
+// peso = [] ----> api w.metric[1].map() = min [i] && w.metric[2]= max[i] 
+//

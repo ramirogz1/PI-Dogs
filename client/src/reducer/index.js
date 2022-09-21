@@ -2,6 +2,7 @@ const initalState = {
   dogs: [],
   temperaments: [],
   allDogs:[],
+  detail: []
 };
 
 function rootReducer(state = initalState, action) {
@@ -12,6 +13,12 @@ function rootReducer(state = initalState, action) {
         dogs: action.payload,
         allDogs: action.payload,
       };
+      case "GET_NAME_DOGS":
+        return{
+          ...state,
+          dogs: action.payload,
+          allDogs:action.payload
+        }
     case "GET_TEMPERAMENTS":
        
       return {
@@ -55,6 +62,45 @@ function rootReducer(state = initalState, action) {
               }
               return 0
             })
+            return{
+              ...state,
+              dogs:sortedArr
+            }
+            case "ORDEN_PESO":
+              const sortedArrPeso = action.payload === 'min'? 
+            state.dogs.sort(function(a,b){
+              if(parseInt(a.weight[1]) > parseInt(b.weight[1])){
+                return 1
+              }
+              if(parseInt(b.weight[1]) > parseInt(a.weight[1])){
+                return -1
+              }
+              return 0
+            }):
+            state.dogs.sort(function(a,b){
+              if(parseInt(a.weight[1]) > parseInt(b.weight[1])){
+                return -1
+              }
+              if(parseInt(b.weight[1]) > parseInt(a.weight[1])){
+                return 1
+              }
+              return 0
+            }) 
+              return{
+              ...state,
+              dogs:sortedArrPeso,
+            }
+              case "POST_DOGS":
+                return {
+                  ...state,
+                  
+                }
+                case "GET_DETAILS":
+                  return{
+                    ...state,
+                      detail: action.payload
+                  }
+
     default:
       return state;
   }

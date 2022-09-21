@@ -51,3 +51,56 @@ export function orderByName (payload){
     payload,
   }
 }
+
+// peso 
+
+export function orderPeso (payload){
+  return {
+    type: "ORDEN_PESO",
+    payload,
+  }
+}
+
+// 
+
+export function getNameDogs(name){
+  return async function(dispacth){
+    try {
+      var json = await axios.get("http://localhost:3001/dogs?name="+name)
+      return dispacth({
+        type: "GET_NAME_DOGS",
+        payload: json.data
+      })
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
+}
+
+
+// crear Dogo 
+export function postDogs(payload){
+  return async function(dispatch){
+    const response = await axios.post('http://localhost:3001/dogs',payload)
+    console.log(payload)
+    return response
+  }
+}
+
+//detalle
+
+export function getDetail(id){
+  return async function(dispatch){
+    try {
+      var json = await axios.get ('http://localhost:3001/dogs/'+id);
+      return dispatch({
+        type: "GET_DETAILS",
+        payload: json.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+   
+  }
+}

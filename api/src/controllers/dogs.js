@@ -9,12 +9,13 @@ const getApiInfo = async ()=> {
         const dogsFilter = dogsAll.data.map (e=>{ return {
             id:e.id ,
             name:e.name,
-            height:e.height.metric,
-            weight: e.weight.metric,
+            height:e.height.metric.split(" - "),
+            weight: e.weight.metric.split(" - "),
             years:e.life_span,
             temper:e.temperament?e.temperament.split(", "):"",
             image : e.image.url
         }})
+        
         const sinFilter = []
         dogsFilter.forEach(element => {
             if(element.temper !== ""){
@@ -22,7 +23,6 @@ const getApiInfo = async ()=> {
             }
             
         });
-        
         
         return sinFilter;
     } catch (error) {
@@ -49,9 +49,9 @@ const getDbInfo = async() => {
                 id: e.id,
                 name: e.name,
                 image : e.image,
-                height: e.height,
-                weight: e.weight,
-                years: e.years,
+                height: e.height.split(" - "),
+                weight: e.weight.split(" - "),
+                years: e.years.split(" - "),
                 temper: e.tempers?.map(e=> e.name),
             }
         })
