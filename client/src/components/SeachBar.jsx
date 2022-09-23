@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getNameDogs } from "../actions";
+import './SearchBar.css';
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -24,13 +25,13 @@ export default function SearchBar() {
   }
 
   return (
-    <div>
-      <input
+    <div className="">
+      <input className="div-input2"
         type="text"
         placeholder="Buscar..."
         onChange={(e) => handleInputChange(e)}
       />
-      <button type="submit" onClick={(e) => handleSubmit(e)}>
+      <button className="buscar" type="submit" onClick={(e) => handleSubmit(e)}>
         Buscar
       </button>
     </div>

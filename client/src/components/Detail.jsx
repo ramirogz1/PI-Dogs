@@ -3,6 +3,7 @@ import { Link , useParams} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail } from "../actions/index";
 import { useEffect } from "react";
+import './Detail.css'
 
 
 export default function Detail() {
@@ -12,20 +13,21 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(getDetail(id));
+
   }, [dispatch,id]);
+
 
   const myDog = useSelector((state) => state.detail);
   console.log(myDog)
   return (
-    <div>
+    <div className="fondo2">
       {myDog.length > 0  ? 
-        <div>
-          <h1> {myDog[0].name}</h1>
-          <img
+        <div className="detalle2">
+          <h1 className="cartaDetalle"> {myDog[0].name}</h1>
+          <img className="imagenDetalle"
             src={myDog[0].image ? myDog[0].image : myDog[0].img}
             alt=""
-            width="500px"
-            height="700px"
+            
           />
           <h2>Altura: {myDog[0].height.join(' - ')}</h2>
           <h3>Peso: {myDog[0].weight.join(' - ')}</h3>
@@ -35,11 +37,10 @@ export default function Detail() {
        : myDog ?
        <div>
           <h1>{myDog.name}</h1>
-          <img
+          <img className="imagenDetalle"
             src={myDog.image ? myDog.image : myDog.img}
             alt=""
-            width="500px"
-            height="700px"
+            
           />
           <h2>Altura : {myDog.height}</h2>
           <h3>Peso : {myDog.weight}</h3>

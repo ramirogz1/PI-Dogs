@@ -1,0 +1,15 @@
+.cartaUnica{
+    background-color: rebeccapurple;
+    height: 420px;
+    width: 400px;
+    border-radius: 15px;
+    box-shadow: 15px 10px 10px rgba(0, 0, 0, 0.534);
+    transition: all ease 350ms;
+    margin-bottom: 20px;
+    color: black
+}
+
+.cartaUnica:hover{
+    transform: translateY(-3%);
+
+}

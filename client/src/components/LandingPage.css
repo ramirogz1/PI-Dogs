@@ -13,7 +13,9 @@
   color: rebeccapurple;
   font-size: xxx-large;
   -webkit-text-stroke: 2px black;
-  
+  font-family:'Century Gothic';
+  font-style: oblique;
+font-weight: bold;
 }
 
 .boton {
