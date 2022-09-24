@@ -83,7 +83,7 @@ export default function DogCreate() {
                         if (input.min_years <= input.max_years) {
                           if (input.temper.length > 0) {
                             dispatch(postDogs(input));
-                            alert("Tu Perro Fue Creado Con Exito Amigo!! 🤗");
+                            alert("Tu Perro Fue Creado Con Exito !! 🤗");
                             setInput({
                               name: "",
                               min_height: "",
