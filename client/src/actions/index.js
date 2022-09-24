@@ -74,6 +74,11 @@ export function getNameDogs(name){
     }
     catch(error){
       console.log(error)
+      return dispacth({
+        type: "GET_NAME_DOGS",
+        payload: []
+      })
+     
     }
   }
 }

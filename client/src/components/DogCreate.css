@@ -11,7 +11,7 @@
   margin-right: 10px;
   margin-left: 10px;
   height: 20px;
-  width: 30px;
+  width: 28px;
   color: red;
   border-radius: 15px;
   cursor: pointer;
@@ -45,8 +45,8 @@ label {
 }
 .lista {
   display: inline-flex;
-  -webkit-text-stroke: 1px black;
   font-weight: bold;
+  color:rgb(64, 2, 122);
   
 }
 
@@ -58,6 +58,7 @@ label {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: large;
   cursor: pointer;
+  
 }
 
 .botonVolver {
@@ -74,13 +75,15 @@ background-color: chartreuse;
 }
 
 .formulario2{
+  display: flex;
+    flex-direction: column;
    margin-top: 10px;
     border-radius: 20px;
     background-color:cornflowerblue;
-    height: 700px;
+   
     width: 500px;
-    display: flex;
-    flex-direction: column;
+    padding-bottom: 20px;
+    
 }
 
 .temperamentos{

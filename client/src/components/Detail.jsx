@@ -29,8 +29,8 @@ export default function Detail() {
             alt=""
             
           />
-          <h2>Altura: {myDog[0].height.join(' - ')}</h2>
-          <h3>Peso: {myDog[0].weight.join(' - ')}</h3>
+          <h2>Altura: {myDog[0].height.join(' - ') + ' cm'}</h2>
+          <h3>Peso: {myDog[0].weight.join(' - ') + ' kg'}</h3>
           <h2>Años de vida: {myDog[0].years}</h2>
           <h4>Temperamento: {myDog[0].temper.join(', ')}</h4>
         </div>
@@ -42,9 +42,9 @@ export default function Detail() {
             alt=""
             
           />
-          <h2>Altura : {myDog.height}</h2>
-          <h3>Peso : {myDog.weight}</h3>
-          <h2>Años de vida : {myDog.years}</h2>
+          <h2>Altura : {myDog.height} cm</h2>
+          <h3>Peso : {myDog.weight} kg</h3>
+          <h2>Años de vida : {myDog.years} years</h2>
           <h4>Temperamento : {myDog.tempers?.map(e=>e.name).join(', ')}</h4>
         </div>
         :
@@ -53,7 +53,7 @@ export default function Detail() {
       }
 
         <Link to ='/home'>
-            <button>Volver</button>
+            <button className="botonVolver">◀Volver</button>
         </Link>
 
     </div>

@@ -256,9 +256,10 @@ export default function DogCreate() {
             </select>
             <div className="temperamentos">
               <ul>
-                <li className="lista">
-                  {input.temper.map((el) => (
-                    <div className="divTemp">
+              {input.temper.map((el) => (
+                <li className="lista" >
+               
+                    {/* <div className="divTemp"> */}
                       {el}
                       <button
                         className="botonX"
@@ -266,9 +267,10 @@ export default function DogCreate() {
                       >
                         X
                       </button>
-                    </div>
+                    {/* </div> */}
+                    </li>
                   ))}
-                </li>
+                
               </ul>
             </div>
           </div>

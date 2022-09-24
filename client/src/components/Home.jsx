@@ -176,7 +176,8 @@ if(loading){
         />
       </div>
       <div className="cards">
-      {currentDogs?.map((el) => {
+      { currentDogs.length>0 ?  
+      currentDogs?.map((el) => {
         return (
           <div className="link" key={el.id}>
             <Link to={"/home/" + el.id}>
@@ -190,7 +191,8 @@ if(loading){
             </Link>
           </div>
         );
-      })}
+      })
+    :(<h1>No hay resultados</h1>)}
       </div>
     </div>
   );
