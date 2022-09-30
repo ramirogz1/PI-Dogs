@@ -54,7 +54,6 @@ export default function DogCreate() {
         [e.target.name]: e.target.value,
       })
     );
-    console.log(input);
   }
 
   function handleSelect(e) {
@@ -68,62 +67,130 @@ export default function DogCreate() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (input.name !== "") {
-      if (
-        !dogs.find((el) => el.name.trim().toLowerCase() === input.name.trim().toLowerCase())
-      ) {
-        if (input.min_height !== "") {
-          if (input.max_height !== "") {
-            if (input.min_height <= input.max_height) {
-              if (input.min_weight !== "") {
-                if (input.max_weight !== "") {
-                  if (input.min_weight <= input.max_weight) {
-                    if (input.min_years !== "") {
-                      if (input.max_years !== "") {
-                        if (input.min_years <= input.max_years) {
-                          if (input.temper.length > 0) {
-                            dispatch(postDogs(input));
-                            alert("Tu Perro Fue Creado Con Exito !! 🤗");
-                            setInput({
-                              name: "",
-                              min_height: "",
-                              max_height: "",
-                              min_weight: "",
-                              max_weight: "",
-                              min_years: "",
-                              max_years: "",
-                              temper: [],
-                              image: "",
-                            });
-                            history.push("/home");
+    if (input.name.trim() !== "") {
+      var patt = new RegExp(/^[A-Za-z\s]+$/g);
+      var res = patt.test(input.name);
+      if (res) {
+        if (
+          !dogs.find(
+            (el) =>
+              el.name.trim().toLowerCase() === input.name.trim().toLowerCase()
+          )
+        ) {
+          if (input.min_height !== "") {
+            if (input.min_height >= 20 && input.min_height <= 80) {
+              if (input.max_height !== "") {
+                if (input.max_height >= 30 && input.max_height <= 100) {
+                  if (input.min_height <= input.max_height) {
+                    if (input.min_weight !== "") {
+                      if (input.min_weight >= 3 && input.min_weight <= 50) {
+                        if (input.max_weight !== "") {
+                          if (
+                            input.max_weight >= 60 &&
+                            input.max_weight <= 100
+                          ) {
+                            if (input.min_weight <= input.max_weight) {
+                              if (input.min_years !== "") {
+                                if (
+                                  input.min_years >= 1 &&
+                                  input.min_years <= 3
+                                ) {
+                                  if (input.max_years !== "") {
+                                    if (
+                                      input.max_years >= 3 &&
+                                      input.max_years <= 20
+                                    ) {
+                                      if (input.min_years <= input.max_years) {
+                                        if (input.temper.length > 0) {
+                                          dispatch(postDogs(input));
+                                          alert(
+                                            "Tu Perro Fue Creado Con Exito !! 🤗"
+                                          );
+                                          setInput({
+                                            name: "",
+                                            min_height: "",
+                                            max_height: "",
+                                            min_weight: "",
+                                            max_weight: "",
+                                            min_years: "",
+                                            max_years: "",
+                                            temper: [],
+                                            image: "",
+                                          });
+                                          history.push("/home");
+                                          return;
+                                        } else {
+                                          alert(
+                                            "Temperamento no fue cargado. Por favor Seleccione algun/os Temperamento/s"
+                                          );
+                                          return;
+                                        }
+                                      } else {
+                                        alert(
+                                          "el año minimo debe ser menor o igual al año maximo"
+                                        );
+                                        return;
+                                      }
+                                    } else {
+                                      alert(
+                                        "el año de vida maximo debe ser mayor o igual a 3 y menor igual a 20"
+                                      );
+                                      return;
+                                    }
+                                  }
+                                } else {
+                                  alert(
+                                    "el año de vida minimo debe ser mayor o igual a 1 y menor igual a 3"
+                                  );
+                                  return;
+                                }
+                              }
+                            } else {
+                              alert(
+                                "el peso minimo debe ser menor o igual al peso maximo"
+                              );
+                              return;
+                            }
+                          } else {
+                            alert(
+                              "el peso maximo debe ser mayor o igual a 60 y menor o igual a 100"
+                            );
                             return;
                           }
-                        } else {
-                          alert(
-                            "el año minimo debe ser menor o igual al año maximo"
-                          );
-                          return;
                         }
+                      } else {
+                        alert(
+                          "el peso minimo debe ser mayor o igual a 3 y menor o igual a 50"
+                        );
+                        return;
                       }
                     }
                   } else {
                     alert(
-                      "el peso minimo debe ser menor o igual al peso maximo"
+                      "la altura minima debe ser menor o igual a la altura maxima"
                     );
                     return;
                   }
+                } else {
+                  alert(
+                    "el valor maximo de altura debe ser mayor o igual a 30 o menor o igual a 100"
+                  );
+                  return;
                 }
               }
             } else {
               alert(
-                "la altura minima debe ser menor o igual a la altura maxima"
+                "El valor minimo de la altura debe ser mayor o igual a 20 y menor o igual a 80"
               );
               return;
             }
           }
+        } else {
         }
-      } else {
         alert("Ya existe la raza con ese nombre");
+        return;
+      } else {
+        alert("La raza debe ser solamente completado con letras");
         return;
       }
     }
@@ -167,8 +234,6 @@ export default function DogCreate() {
             <input
               type="number"
               value={input.min_height}
-              min="20"
-              max="80"
               name="min_height"
               onChange={(e) => handleChange(e)}
             />
@@ -179,8 +244,6 @@ export default function DogCreate() {
             <input
               type="number"
               value={input.max_height}
-              min="30"
-              max="100"
               name="max_height"
               onChange={(e) => handleChange(e)}
             />
@@ -191,8 +254,6 @@ export default function DogCreate() {
             <input
               type="number"
               value={input.min_weight}
-              min="3"
-              max="50"
               name="min_weight"
               onChange={(e) => handleChange(e)}
             />
@@ -203,8 +264,6 @@ export default function DogCreate() {
             <input
               type="number"
               value={input.max_weight}
-              min="60"
-              max="100"
               name="max_weight"
               onChange={(e) => handleChange(e)}
             />
@@ -224,8 +283,6 @@ export default function DogCreate() {
             <input
               type="number"
               value={input.min_years}
-              min="1"
-              max="3"
               name="min_years"
               onChange={(e) => handleChange(e)}
             />
@@ -235,8 +292,6 @@ export default function DogCreate() {
             <input
               type="number"
               value={input.max_years}
-              min="1"
-              max="20"
               name="max_years"
               onChange={(e) => handleChange(e)}
             />
@@ -256,21 +311,14 @@ export default function DogCreate() {
             </select>
             <div className="temperamentos">
               <ul>
-              {input.temper.map((el) => (
-                <li className="lista" >
-               
-                    {/* <div className="divTemp"> */}
-                      {el}
-                      <button
-                        className="botonX"
-                        onClick={() => handleDelete(el)}
-                      >
-                        X
-                      </button>
-                    {/* </div> */}
-                    </li>
-                  ))}
-                
+                {input.temper.map((el) => (
+                  <li className="lista">
+                    {el}
+                    <button className="botonX" onClick={() => handleDelete(el)}>
+                      X
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -283,5 +331,3 @@ export default function DogCreate() {
     </div>
   );
 }
-
-// crea estado [] funcion validate

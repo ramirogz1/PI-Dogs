@@ -88,7 +88,6 @@ export function getNameDogs(name){
 export function postDogs(payload){
   return async function(dispatch){
     const response = await axios.post('http://localhost:3001/dogs',payload)
-    console.log(payload)
     return response
   }
 }
@@ -109,3 +108,10 @@ export function getDetail(id){
    
   }
 }
+
+
+
+
+
+
+

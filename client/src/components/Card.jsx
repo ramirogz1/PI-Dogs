@@ -1,7 +1,7 @@
 import React from "react";
 import './Card.css'
 
-export default function Card({name, image, temper,weight}){
+export default function Card({name, image, temper,weight,height}){
     return (
         <div className="cartaUnica">
             <h3> {name}</h3>

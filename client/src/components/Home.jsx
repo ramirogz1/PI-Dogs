@@ -56,11 +56,12 @@ export default function Home() {
     .catch((error)=>{
       console.log(error)
   })
-    dispatch(getTemperaments());
+  dispatch(getTemperaments());
   }, [dispatch]);
 
   function handleClick(e) {
     e.preventDefault();
+
     dispatch(getDogs());
   }
 
@@ -89,6 +90,8 @@ export default function Home() {
     setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`);
   }
+  
+
 
 if(loading){
   return(
@@ -164,6 +167,10 @@ if(loading){
             <option value="min">De Menor a Mayor</option>
             <option value="max">De Mayor a Menor</option>
           </select>
+          
+          
+          
+          
 
           <SearchBar />
         
@@ -197,19 +204,3 @@ if(loading){
     </div>
   );
 }
-
-// {allDogs &&
-//     allDogs.map((el) => {
-//       //currentDogs.map((el) => {
-//       return (
-//         <div>
-//           <Card
-//             name={el.name}
-//             image={el.image}
-//             temperament={el.temperament}
-//             weight={el.weight}
-//             key={el.id}
-//           />
-//         </div>
-//       );
-//     })}

@@ -17,11 +17,16 @@ const getApiInfo = async ()=> {
         }})
         
         const sinFilter = []
+        
         dogsFilter.forEach(element => {
+            if(element.weight.length===1){
+                const aux =  element.weight[0]
+                element.weight.push(aux)
+            }
             if(element.temper !== ""){
                 sinFilter.push(element)
             }
-            
+           
         });
         
         return sinFilter;

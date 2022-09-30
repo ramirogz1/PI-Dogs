@@ -1,7 +1,7 @@
 import React from "react";
 import { Link , useParams} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail } from "../actions/index";
+import { getDetail, } from "../actions/index";
 import { useEffect } from "react";
 import './Detail.css'
 
@@ -13,12 +13,11 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(getDetail(id));
-
   }, [dispatch,id]);
 
 
   const myDog = useSelector((state) => state.detail);
-  console.log(myDog)
+ 
   return (
     <div className="fondo2">
       {myDog.length > 0  ? 

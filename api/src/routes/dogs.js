@@ -1,5 +1,4 @@
-const { Router } = require("express");
-const axios = require("axios");
+const { Router, response } = require("express");
 const { getDogAll } = require("../controllers/dogs");
 const { Dog, Temper } = require("../db");
 const { validate: uuidValidate } = require("uuid");
@@ -34,7 +33,9 @@ router.get("/:id", async (req, res) => {
       const idDb = await Dog.findByPk(id, {
         include: Temper,
       });
-      idDb? res.status(200).send(idDb) : res.status(404).send("id no encontrada");
+      idDb
+        ? res.status(200).send(idDb)
+        : res.status(404).send("id no encontrada");
     } else {
       const idDogs = dogsTotal.filter((e) => e.id == id);
 
@@ -47,12 +48,23 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+
 router.post("/", async (req, res) => {
   try {
-    const { name, image, min_height, max_height, min_weight, max_weight, min_years,max_years ,temper } = req.body;
-    const height=min_height + ' - ' + max_height
-    const weight = min_weight + ' - ' + max_weight
-    const years = min_years + ' - ' + max_years
+    const {
+      name,
+      image,
+      min_height,
+      max_height,
+      min_weight,
+      max_weight,
+      min_years,
+      max_years,
+      temper,
+    } = req.body;
+    const height = min_height + " - " + max_height;
+    const weight = min_weight + " - " + max_weight;
+    const years = min_years + " - " + max_years;
     const dogCreate = await Dog.create({
       name,
       image,
