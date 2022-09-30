@@ -48,7 +48,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
 router.post("/", async (req, res) => {
   try {
     const {
@@ -81,5 +80,21 @@ router.post("/", async (req, res) => {
     console.log(error);
   }
 });
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Dog.destroy({
+      where: {
+        id,
+      },
+    });
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
 
 module.exports = router;

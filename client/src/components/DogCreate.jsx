@@ -186,9 +186,9 @@ export default function DogCreate() {
             }
           }
         } else {
+          alert("Ya existe la raza con ese nombre");
+          return;
         }
-        alert("Ya existe la raza con ese nombre");
-        return;
       } else {
         alert("La raza debe ser solamente completado con letras");
         return;
