@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage'
 import Home from './components/Home';
 import DogCreate from './components/DogCreate'
 import Detail from './components/Detail'
+import axios from 'axios';
 
 import dotenv from "dotenv";
 dotenv.config();
