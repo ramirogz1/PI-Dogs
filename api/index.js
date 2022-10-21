@@ -23,7 +23,7 @@ const getTempers = require('./src/controllers/tempers')
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3001, async () => {
+  server.listen(process.env.PORT, async () => {
     await getTempers();
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });

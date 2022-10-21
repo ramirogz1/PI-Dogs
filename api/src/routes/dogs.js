@@ -81,19 +81,20 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req,res)=>{
   try {
-    const { id } = req.params;
+    const{id}= req.params
     await Dog.destroy({
       where: {
         id,
-      },
+      }
+      
     });
     res.sendStatus(200);
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-});
+})
 
 
 

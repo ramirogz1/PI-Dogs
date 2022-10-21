@@ -102,7 +102,7 @@ function rootReducer(state = initalState, action) {
         ...state,
         detail: action.payload,
       };
-      
+
     default:
       return state;
   }

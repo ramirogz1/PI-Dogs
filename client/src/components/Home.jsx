@@ -15,7 +15,7 @@ import {
 } from "../actions";
 //importar el css
 import "./Home.css";
-import loadingImg from '../image/perroLoading.gif';
+import loadingImg from "../image/perroLoading.gif";
 
 // importo los componentes que voy a utilizar
 import Card from "./Card";
@@ -35,28 +35,23 @@ export default function Home() {
   const indexOfFirstDog = indexOfLastDog - dogsPerPage; //0
   const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
   const [, /*orden*/ setOrden] = useState("");
-  const allTemperaments = useSelector((state) => state.temperaments)
-  const [loading,setLoading]=useState(true) 
-
-  //1 ------ 0 -----8
-  //2 -------9-----17
+  const allTemperaments = useSelector((state) => state.temperaments);
+  const [loading, setLoading] = useState(true);
 
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
   // fin de estados locales
 
-
-
   useEffect(() => {
     dispatch(getDogs())
-    .then((response)=>{
-      setLoading(false);
-    })
-    .catch((error)=>{
-      console.log(error)
-  })
-  dispatch(getTemperaments());
+      .then((response) => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    dispatch(getTemperaments());
   }, [dispatch]);
 
   function handleClick(e) {
@@ -90,90 +85,88 @@ export default function Home() {
     setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`);
   }
-  
 
-
-if(loading){
-  return(
-    <div className="loading">
-    <img className="imgLoading" src={loadingImg} alt='no hay imagen' width="200px" height='200px' padding-top='200px'/>
-  <p>Loading...</p>
-  </div>
-  )
-  
-}
+  if (loading) {
+    return (
+      <div className="loading">
+        <img
+          className="imgLoading"
+          src={loadingImg}
+          alt="no hay imagen"
+          width="200px"
+          height="200px"
+          padding-top="200px"
+        />
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="fondoHome">
       <div className="barraSuperior">
-        <Link to="/dog" >
-          <button className="cargarPerros">
-          Crear Perro
-          </button>
-          </Link>
-        <button className="cargarPerros"
+        <Link to="/dog">
+          <button className="cargarPerros">Crear Perro</button>
+        </Link>
+        <button
+          className="cargarPerros"
           onClick={(e) => {
             handleClick(e);
           }}
         >
           Volver a cargar todos los perros
         </button>
-        
-          <select
-            onChange={(e) => {
-              handleFilterTemper(e);
-            }}
-          >
-            <option disabled selected>
-              Temperamentos
-            </option>
-            {allTemperaments?.map((element) => (
-              <option value={element.name} key={element.id}>
-                {element.name}
-              </option>
-            ))}
-          </select>
-          <select
-            onChange={(e) => {
-              handlefilterOrigen(e);
-            }}
-          >
-            <option disabled selected>
-              Raza
-            </option>
-            <option value="Api">Api</option>
-            <option value="DataBase">Base de Datos</option>
-          </select>
 
-          <select
-            onChange={(e) => {
-              handleSort(e);
-            }}
-          >
-            <option disabled selected>
-              Orden Alfabetico
+        <select
+          onChange={(e) => {
+            handleFilterTemper(e);
+          }}
+        >
+          <option disabled selected>
+            Temperamentos
+          </option>
+          {allTemperaments?.map((element) => (
+            <option value={element.name} key={element.id}>
+              {element.name}
             </option>
-            <option value="asc">Ascendente</option>
-            <option value="des">Descendente</option>
-          </select>
-          <select
-            onChange={(e) => {
-              handlePeso(e);
-            }}
-          >
-            <option disabled selected>
-              Peso
-            </option>
-            <option value="min">De Menor a Mayor</option>
-            <option value="max">De Mayor a Menor</option>
-          </select>
-          
-          
-          
-          
+          ))}
+        </select>
+        <select
+          onChange={(e) => {
+            handlefilterOrigen(e);
+          }}
+        >
+          <option disabled selected>
+            Raza
+          </option>
+          <option value="Api">Api</option>
+          <option value="DataBase">Base de Datos</option>
+        </select>
 
-          <SearchBar />
-        
+        <select
+          onChange={(e) => {
+            handleSort(e);
+          }}
+        >
+          <option disabled selected>
+            Orden Alfabetico
+          </option>
+          <option value="asc">Ascendente</option>
+          <option value="des">Descendente</option>
+        </select>
+        <select
+          onChange={(e) => {
+            handlePeso(e);
+          }}
+        >
+          <option disabled selected>
+            Peso
+          </option>
+          <option value="min">De Menor a Mayor</option>
+          <option value="max">De Mayor a Menor</option>
+        </select>
+
+        <SearchBar />
       </div>
       <div>
         <Paginado
@@ -183,23 +176,25 @@ if(loading){
         />
       </div>
       <div className="cards">
-      { currentDogs.length>0 ?  
-      currentDogs?.map((el) => {
-        return (
-          <div className="link" key={el.id}>
-            <Link to={"/home/" + el.id}>
-              <Card
-                name={el.name}
-                image={el.image}
-                temper={el.temper}
-                weight={el.weight}
-                key={el.id}
-              />
-            </Link>
-          </div>
-        );
-      })
-    :(<h1>No hay resultados</h1>)}
+        {currentDogs.length > 0 ? (
+          currentDogs?.map((el) => {
+            return (
+              <div className="link" key={el.id}>
+                <Link to={"/home/" + el.id}>
+                  <Card
+                    name={el.name}
+                    image={el.image}
+                    temper={el.temper}
+                    weight={el.weight}
+                    key={el.id}
+                  />
+                </Link>
+              </div>
+            );
+          })
+        ) : (
+          <h1>No hay resultados</h1>
+        )}
       </div>
     </div>
   );

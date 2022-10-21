@@ -116,6 +116,7 @@ export default function DogCreate() {
                                             max_years: "",
                                             temper: [],
                                             image: "",
+                                          
                                           });
                                           history.push("/home");
                                           return;
@@ -296,6 +297,7 @@ export default function DogCreate() {
               onChange={(e) => handleChange(e)}
             />
           </div>
+         
           <div>
             <label>Temperamento: </label>
 
